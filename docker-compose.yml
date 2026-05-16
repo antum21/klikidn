@@ -6,6 +6,7 @@ services:
             - "8000:80"
         volumes:
             - ./:/var/www/html
+            - vendor_data:/var/www/html/vendor  # ← tambahkan ini
         depends_on:
             - db
         environment:
@@ -15,6 +16,8 @@ services:
             DB_DATABASE: klikidn
             DB_USERNAME: root
             DB_PASSWORD: ""
+        restart: always
+        
 
     db:
         image: mysql:8
@@ -38,3 +41,6 @@ services:
             PMA_HOST: db
             PMA_USER: root
             PMA_PASSWORD: ""
+
+volumes:
+    vendor_data:
