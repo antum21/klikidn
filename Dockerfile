@@ -1,11 +1,14 @@
 FROM php:8.4-apache
-
-# 1. Install system dependencies & ekstensi PHP yang dibutuhkan Laravel
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
     zip \
+    curl \
     && docker-php-ext-install pdo pdo_mysql
+
+# Install Node.js + npm
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
 
 # 2. Ambil Composer resmi dari image composer resmi
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -24,8 +27,11 @@ WORKDIR /var/www/html
 # 6. Salin semua file project dan set kepemilikannya ke www-data
 COPY --chown=www-data:www-data . /var/www/html
 
-# 7. Jalankan Composer Install di dalam container untuk membuat folder vendor
+# 7. Jalankan Composer Install
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 
-# 8. Pastikan permission folder storage & cache sudah tepat
+# 8. Install npm dependencies & build Tailwind
+RUN npm install && npm run build
+
+# 9. Pastikan permission folder storage & cache sudah tepat
 RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
