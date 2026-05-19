@@ -1,7 +1,30 @@
+
+.element::-webkit-scrollbar {
+  display: none;
+}
+
+.element {
+  scrollbar-width: none;
+  -ms-overflow-style: none;  /* Menyembunyikan scrollbar untuk Internet Explorer */
+  overflow: auto;            /* Memastikan konten tetap bisa di-scroll */
+}
 .container-bg {
     background-image: url("../img/banner.png");
     background-size: cover;
     background-position: center;
     width: 100%;
     height: 100%;
+}
+.container-bg-dark::not-dark {
+    background-image: url("../img/klik.png");
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+}
+.card{
+  display: flex;
+  margin: 20px 20px;
+  padding: 20px;
+  gap:20px;
 }
