@@ -11,3 +11,6 @@ Route::get('/index', function () {
 Route::get('/', function () {
     return view('klikidn');
 });
+Route::get('/product', function () {
+    return view('product');
+});

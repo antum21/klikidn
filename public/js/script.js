@@ -102,3 +102,23 @@ function activateCard(card) {
   // Langsung tampilkan slide pertama
   goToSlide(0);
 }
+
+function toggleMenu() {
+  const btn  = document.getElementById('hamburger');
+  const menu = document.getElementById('mobileMenu');
+
+  btn.classList.toggle('open');
+  menu.classList.toggle('open');
+}
+
+// Tutup menu saat klik di luar
+document.addEventListener('click', (e) => {
+  const nav  = document.querySelector('nav');
+  const menu = document.getElementById('mobileMenu');
+  const btn  = document.getElementById('hamburger');
+
+  if (!nav.contains(e.target)) {
+    menu.classList.remove('open');
+    btn.classList.remove('open');
+  }
+});

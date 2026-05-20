@@ -372,12 +372,27 @@
     /* ==============================
        RESPONSIVE
     ============================== */
-    @media (max-width: 900px) {
-      .cards-grid { grid-template-columns: 1fr 1fr; }
-      .nav-links { display: none; }
-      .hero-text { padding: 0 24px 60px; }
-      .cards-section { padding: 40px 24px 60px; }
-    }
+
+.hamburger { display: none; }
+.mobile-menu { display: none; }
+@media (max-width: 900px) {
+  .nav-links { display: none !important; }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 2px solid var(--color-text);
+    border-radius: 8px;
+    cursor: pointer;
+    gap: 5px;
+    padding: 8px;
+  }
+}
+    
     @media (max-width: 600px) {
       .cards-grid { grid-template-columns: 1fr; }
       .hero-text h1 { font-size: 56px; }
@@ -492,5 +507,80 @@
   width: 24px;
 }
 
-/* ── Hapus class lama hero-banner-img jika masih ada ─────── */
-/* (tidak diperlukan lagi, sudah diganti .slide-img) */
+/* Desktop: links muncul, hamburger disembunyikan */
+/* Desktop: tampilkan links, sembunyikan hamburger */
+/* Mobile menu dropdown */
+.mobile-menu {
+  position: fixed;          /* fixed, bukan absolute! */
+  top: 68px;                /* tepat di bawah navbar */
+  left: 0;
+  right: 0;
+  z-index: 99;              /* di bawah nav (100) tapi di atas semua konten */
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  padding: 12px 20px 16px;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobile-menu.open {
+  display: flex;
+  animation: slideDown 0.2s ease;
+}
+
+.mobile-menu a {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--color-text);
+  text-decoration: none;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.02em;
+  transition: background 0.2s, color 0.2s;
+}
+
+.mobile-menu a:hover {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.mobile-menu .mobile-login {
+  margin-top: 8px;
+  text-align: center;
+  border: 2px solid var(--color-text);
+  border-radius: 999px;
+  padding: 10px 16px;
+}
+
+.mobile-menu .mobile-login:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+/* Mobile: sembunyikan links, tampilkan hamburger */
+
+/* Animasi hamburger → X */
+/* Slide Out */
+.hamburger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--color-text);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
