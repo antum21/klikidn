@@ -9,8 +9,14 @@
   <div style="margin-top: 68px">
   <div class="kaos-layout">
   <div class="hero">
-    <!-- <img src="img/kaos.png" alt="" srcset="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;"> -->
-  
+    <div class="mockup">
+     <img
+     class="kaos"
+    id="shirtImage"
+    src="{{ asset($colors[0]['image']) }}"
+    alt="">
+  <!-- <canvas id="myCanvas" width="500" height="300"></canvas> -->
+   </div>
     <div class="hero-text">
       <h1>Preview <span>Kaos</span></h1>
       <p>Atur warna & desain baju kamu</p>
@@ -23,39 +29,51 @@
       <h2>Pengaturan Warna</h2>
       <span>Pilih warna kaos kamu</span>
     </div>
+<div class="color-buttons">
 
-    <!-- Canvas preview + controls dalam grid -->
-    <div class="cards-grid">
+    @foreach($colors as $index => $color)
 
-      <!-- Card: Canvas Preview -->
-      
+        <div
+            class="color-btn {{ $index == 0 ? 'active' : '' }}"
 
-      <!-- Card: Controls -->
-      <div class="promo-card">
-        <div class="card-body">
+            style="background: {{ $color['hex'] }};"
 
-          <p class="card-title">Pilih Warna</p>
+            data-image="{{ asset($color['image']) }}"
 
-          <p class="card-sub" style="margin-top: 12px;">Warna bebas:</p>
-          <input type="color" id="colorPicker" value="#ffffff"
-            style="width:100%; height:44px; border:none; border-radius:var(--radius-sm); cursor:pointer; margin-top:8px;">
-
-          <p class="card-sub" style="margin-top: 16px;">Warna cepat:</p>
-          <div id="colorContainer" class="color-container" style="margin-top:8px;"></div>
-
-          <input type="text" id="colorNameInput" placeholder="Nama warna"
-            style="display:none;">
-
+            title="{{ $color['name'] }}">
         </div>
-      </div>
 
-    </div>
+    @endforeach
+
+</div>
+   
   </div>
 </div>
 </div>
 
   <script src="{{ asset('js/script.js') }}">
     
+  </script>
+  <script>
+ const shirtImage = document.getElementById("shirtImage");
+
+const buttons = document.querySelectorAll(".color-btn");
+
+buttons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        document.querySelector(".color-btn.active")
+            ?.classList.remove("active");
+
+        button.classList.add("active");
+
+        shirtImage.src = button.dataset.image;
+
+    });
+
+});
+
   </script>
 </body>
 </html>
