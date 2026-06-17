@@ -33,6 +33,7 @@
       </div>
 
 </a>
+<a href="/pdh">
       <div class="promo-card"
            data-img="{{ asset('img/banner.png') }}"
            onclick="">
@@ -48,6 +49,8 @@
             <button class="card-cta">Lihat Detail →</button>
             </div>
       </div>
+    </a>
+    <a href="/rompi">
       <div class="promo-card"
            data-img="{{ asset('img/banner.png') }}"
            onclick="">
@@ -63,6 +66,7 @@
             <button class="card-cta">Lihat Detail →</button>
             </div>
       </div>
+</a>
     </div>
     </div>
      
